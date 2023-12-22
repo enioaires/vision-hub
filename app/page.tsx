@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="text-emerald-500">
-      <Button>Teste</Button>
+    <div>
+      <UserButton afterSignOutUrl="/" />
     </div>
   );
 }
