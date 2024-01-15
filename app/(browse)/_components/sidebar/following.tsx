@@ -1,17 +1,19 @@
 "use client";
 import { useSidebar } from "@/store/use-sidebar";
-import { Follow, User } from "@prisma/client";
+import { Follow, Stream, User } from "@prisma/client";
 import { FC } from "react";
 import { UserItem, UserItemSkeleton } from "./user-item";
 
 type Props = {
-  data: (Follow & { following: User })[];
+  data: (Follow & {
+    following: User & {
+      Stream: Stream | null;
+    };
+  })[];
 };
 
 export const Following: FC<Props> = ({ data }) => {
   const collapsed = useSidebar((state) => state.collapsed);
-
-  console.log(data);
 
   if (!data.length) return null;
 
@@ -28,6 +30,7 @@ export const Following: FC<Props> = ({ data }) => {
             key={user.following.id}
             username={user.following.username}
             imageUrl={user.following.imageUrl}
+            isLive={user.following.Stream?.isLive}
           />
         ))}
       </ul>
